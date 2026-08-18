@@ -1,2 +1,3 @@
 WHILE:
-	p=
+	User=input("Enter Username")
+	PassWord=input("Enter Password")
