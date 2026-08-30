@@ -5,6 +5,31 @@ mydb = mysql.connector.connect(
     password="Evan@2009",
     database="AIR_TRAFFIC_CONTROL"
 )
+def AircraftManagementMenu():
+    while True:
+        print("==Aircraft Management Menu==")
+        print("1. Add Aircraft Details")
+        print("2. View All Aircraft")
+        print("3. Search An Aircraft")
+        print("4. Update Aircraft Status")
+        print("5. Delete Aircraft Record")
+        print("6. Back to Main Menu")
+        AMMchoice=int(input("Enter Choice:"))
+        if AMMchoice == 1:
+            ADDAIRCRAFT()
+        elif AMMchoice == 2:
+            VIEWAIRCRAFT()
+        elif AMMchoice == 3:
+            SEARCHAIRCRAFT()
+        elif AMMchoice == 4:
+            UPDATEAIRCRAFT()
+        elif AMMchoice == 5:
+            DELETEAIRCRAFT()
+        elif AMMchoice == 6:
+            print("Back to Main Menu")
+            break
+        else:
+            print("Invalid Choice")
 def FlightManagementMenu():
     while True:
         print("==Flight Management Menu==")
@@ -12,15 +37,24 @@ def FlightManagementMenu():
         print("2. Display All flight details")
         print("3. Search A Flight")
         print("4. Update Flight Details")
-        print("5. Remove Flight")
+        print("5. Remove Flight Record")
         print("6. Back to Main menu")
         FMMchoice=int(input("Enter Choice:"))
         if FMMchoice == 1:
             ADDFLIGHT()
         elif FMMchoice == 2:
             DISPLAYDETAILS()
-        
-    
+        elif FMMchoice == 3:
+            SEARCHFLIGHT()
+        elif FMMchoice == 4:
+            UPDATEFLIGHT()
+        elif FMMchoice == 5:
+            REMOVEFLIGHT()
+        elif FMMchoice == 6:
+            print("Back to Main Menu")
+            break
+        else:
+            print("Invalid Choice")
 mycursor = mydb.cursor()
 print("===================================")
 print("       ATC MANAGEMENT SYSTEM")
