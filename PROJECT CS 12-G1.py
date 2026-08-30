@@ -5,6 +5,8 @@ mydb = mysql.connector.connect(
     password="Evan@2009",
     database="AIR_TRAFFIC_CONTROL"
 )
+
+#AIRCRAFT RELATED FUNCTION
 def AircraftManagementMenu():
     while True:
         print("==Aircraft Management Menu==")
@@ -30,6 +32,8 @@ def AircraftManagementMenu():
             break
         else:
             print("Invalid Choice")
+
+#FLIGHT RELATED FUNCTION
 def FlightManagementMenu():
     while True:
         print("==Flight Management Menu==")
@@ -55,6 +59,8 @@ def FlightManagementMenu():
             break
         else:
             print("Invalid Choice")
+
+#LOGIN VERIFICATION PART
 mycursor = mydb.cursor()
 print("===================================")
 print("       ATC MANAGEMENT SYSTEM")
