@@ -6,9 +6,6 @@ mydb = mysql.connector.connect(
     database="atc"
 )
 mycursor=mydb.cursor()
-print("===================================")
-print("       ATC MANAGEMENT SYSTEM")
-print("===================================")
 def login():
         un=input("enter your username:  ")
         username=un.lower()
@@ -25,6 +22,9 @@ def login():
 login()
 
 def MAINMENU():
+    print("===================================")
+    print("       ATC MANAGEMENT SYSTEM")
+    print("===================================")
     while True:
         print("1. Aircraft Management")
         print("2. Flight Management")
@@ -203,21 +203,3 @@ def ReportQueryMenu():
             break
         else:
             print("Invalid Choice")
-        
-#LOGIN VERIFICATION PART
-mycursor = mydb.cursor()
-print("===================================")
-print("       ATC MANAGEMENT SYSTEM       ")
-print("===================================")
-username = input("Enter Username: ")
-password = input("Enter Password: ")
-sql = "SELECT * FROM User WHERE Username = %s AND Password = %s"
-values = (username, password)
-mycursor.execute(sql, values)
-result = mycursor.fetchone()
-if result:
-    print("\nLogin Successful!")
-    print("Welcome", result[1])
-    print("Role:", result[3])
-else:
-    print("\nInvalid Username or Password!")
