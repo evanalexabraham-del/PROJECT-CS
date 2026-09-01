@@ -87,6 +87,34 @@ def PilotInformationMenu():
         else:
             print("Invalid Choice")
 
+#ATCClearanceManagementMenu
+def ATCClearanceManagementMenu():
+    while True:
+        print("==ATC Clearance Management Menu==")
+        print("1. Add Clearance Record")
+        print("2. Display Clearance Details")
+        print("3. Search Clearance Details")
+        print("4. Update Clearance Record")
+        print("5. Delete Clearance Record")
+        print("6. Back to Main Menu")
+        ACMchoice=int(input("Enter Choice:"))
+        if ACMchoice == 1:
+            ADDCLEARANCE()
+        elif ACMchoice == 2:
+            DISPLAYCLEARANCE()
+        elif ACMchoice == 3:
+            SEARCHCLEARANCE()
+        elif ACMchoice == 4:
+            UPDATECLEARANCE()
+        elif ACMchoice == 5:
+            DELETECLEARANCE()
+        elif ACMchoice == 6:
+            print("Back to Main Menu")
+            break
+        else:
+            print("Invalid Choice")
+
+
 #LOGIN VERIFICATION PART
 mycursor = mydb.cursor()
 print("===================================")
