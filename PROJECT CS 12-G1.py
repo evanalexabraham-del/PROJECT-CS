@@ -34,6 +34,23 @@ def AircraftManagementMenu():
             print("Invalid Choice")
 
 #FLIGHT RELATED FUNCTION
+def ADDFLIGHT():
+    flightcursor=mydb.cursor()
+    n=int(input("How many Flight records would you like to add? "))
+    for i in range (n):
+        fid=int(input('Enter Flight ID: '))
+        fno=input('Enter Flight No: ')
+        aid=input('Enter Aircraft ID: ')
+        orig=input('Enter origin city: ')
+        dest-input('Enter destination city:')
+        departuretime=input('Enter time of departure: ')
+        arrivaltime=input('Enter time of arrival: ')
+        status=input('Enter status of flight: ')
+        flightcursor.execute('insert into flights values(fid,fno,aid,orig,dest,departuretime,arrivaltime,status)')
+        mydb.commit()
+        print('Record Inserted')
+        print()
+
 def FlightManagementMenu():
     while True:
         print("==Flight Management Menu==")
