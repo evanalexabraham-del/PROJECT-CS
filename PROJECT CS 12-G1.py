@@ -114,11 +114,31 @@ def ATCClearanceManagementMenu():
         else:
             print("Invalid Choice")
 
+def FlightStatus():
+    while True:
+        print("==Flight Status==")
+        print("1. View Flights")
+        print("2. Search Incoming Flights")
+        print("3. Search Outgoing Flights")
+        print("4. Back to Main Menu")
+        FSchoice=int(input("Enter Choice:"))
+        if FSchoice == 1:
+            VIEWFLIGHTS()
+        elif FSchoice == 2:
+            SEARCHINCOMINGFLIGHTS()
+        elif FSchoice == 3:
+            SEARCHOUTGOINGFLIGHTS()
+        elif FSchoice == 4:
+            print("Taking Back to Main Menu")
+            break
+        else:
+            print("Invalid Choice")
+
 
 #LOGIN VERIFICATION PART
 mycursor = mydb.cursor()
 print("===================================")
-print("       ATC MANAGEMENT SYSTEM")
+print("       ATC MANAGEMENT SYSTEM       ")
 print("===================================")
 username = input("Enter Username: ")
 password = input("Enter Password: ")
