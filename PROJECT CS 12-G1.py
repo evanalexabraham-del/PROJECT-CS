@@ -60,6 +60,32 @@ def FlightManagementMenu():
         else:
             print("Invalid Choice")
 
+def PilotInformationMenu():
+    while True:
+        print("==Pilot Information Menu==")
+        print("1. Add Pilot Details")
+        print("2. View Pilot Details")
+        print("3. Search An Pilot")
+        print("4. Update Pilot Details")
+        print("5. Delete Pilot Record")
+        print("6. Back to Main Menu")
+        PIMchoice=int(input("Enter Choice:"))
+        if PIMchoice == 1:
+            ADDPILOT()
+        elif PIMchoice == 2:
+            VIEWPILOT()
+        elif PIMchoice == 3:
+            SEARCHPILOT()
+        elif PIMchoice == 4:
+            UPDATEPILOT()
+        elif PIMchoice == 5:
+            DELETEPILOT()
+        elif PIMchoice == 6:
+            print("Back to Main Menu")
+            break
+        else:
+            print("Invalid Choice")
+
 #LOGIN VERIFICATION PART
 mycursor = mydb.cursor()
 print("===================================")
