@@ -3,9 +3,55 @@ mydb = mysql.connector.connect(
     host="localhost",
     user="root",
     password="Evan@2009",
-    database="AIR_TRAFFIC_CONTROL"
+    database="atc"
 )
+mycursor=mydb.cursor()
+print("===================================")
+print("       ATC MANAGEMENT SYSTEM")
+print("===================================")
+def login():
+        un=input("enter your username:  ")
+        username=un.lower()
+        password=input("enter your password:  ")
+        query1="select * from users where username=%s and password=%s"
+        values=(username,password)
+        mycursor.execute(query1,values)
+        result=mycursor.fetchone()
+        if result:
+            print("login successful")
+            MAINMENU()
+        else:
+            print("invalid username or password")
+login()
 
+def MAINMENU():
+    while True:
+        print("1. Aircraft Management")
+        print("2. Flight Management")
+        print("3. Pilot Management")
+        print("4. ATC Clearance")
+        print("5. Flight Status")
+        print("6. Report and Queries")
+        print("7. Exit")
+        choice=int(input("Enter Submenu:"))
+        if choice == 1:
+            AircraftManagementMenu()
+        elif choice == 2:
+            FlightManagementMenu()
+        elif choice == 3:
+            PilotInformationMenu()
+        elif choice == 4:
+            ATCClearanceManagementMenu()
+        elif choice == 5:
+            FlightStatusMenu()
+        elif choice == 6:
+            ReportQueryMenu():
+        elif choice == 7:
+            print("Program Terminated")
+            break
+        else:
+            print("Invalid Choice")
+              
 #AIRCRAFT RELATED FUNCTION
 def AircraftManagementMenu():
     while True:
@@ -115,7 +161,7 @@ def ATCClearanceManagementMenu():
             print("Invalid Choice")
             
 #FlightStatusMenu
-def FlightStatus():
+def FlightStatusMenu():
     while True:
         print("==Flight Status==")
         print("1. View Flights")
