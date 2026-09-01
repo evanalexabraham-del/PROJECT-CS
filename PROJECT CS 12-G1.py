@@ -113,7 +113,8 @@ def ATCClearanceManagementMenu():
             break
         else:
             print("Invalid Choice")
-
+            
+#FlightStatusMenu
 def FlightStatus():
     while True:
         print("==Flight Status==")
@@ -134,7 +135,29 @@ def FlightStatus():
         else:
             print("Invalid Choice")
 
-
+def ReportQueryMenu():
+    while True:
+        print("==Flight Status==")
+        print("1. Display Flight Pilot and Aircraft Information")
+        print("2. Show Aircraft Requiring Clearance")
+        print("3. Search Flights Managed by a Controller")
+        print("4. Display Cancelled/Delayed Flights")
+        print("5. Back to Main Menu")
+        RQchoice=int(input("Enter Choice:"))
+        if RQchoice == 1:
+            DISPLAYALLINFO()
+        elif RQchoice == 2:
+            NEEDINGCLEARANCE()
+        elif RQchoice == 3:
+            CONTROLLERMANAGEDFLIGHT()
+        elif RQchoice == 4:
+            CANCELDELAYFLIGHT()
+        elif RQchoice == 5:
+            print("Taking Back to Main Menu")
+            break
+        else:
+            print("Invalid Choice")
+        
 #LOGIN VERIFICATION PART
 mycursor = mydb.cursor()
 print("===================================")
