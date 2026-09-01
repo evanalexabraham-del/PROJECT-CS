@@ -60,6 +60,7 @@ def FlightManagementMenu():
         else:
             print("Invalid Choice")
 
+#PILOT RELATED FUNCTION
 def PilotInformationMenu():
     while True:
         print("==Pilot Information Menu==")
