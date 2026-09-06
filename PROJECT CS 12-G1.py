@@ -23,7 +23,6 @@ def login():
             print("login successful")
             AircraftManagementMenu()
             
-            
         else:
             print("invalid username or password")
 
@@ -134,23 +133,20 @@ def ATCClearanceManagementMenu():
             break
         else:
             print("Invalid Choice")
-    def ADDCLEARANCE():
-    print("==add CLEARANCE RECORD==")
-    print()
+            
+def ADDCLEARANCE():
+    print("==ADD CLEARANCE RECORD==")
     Clearanceid=input("enter clearance id:")
     Flightid=input("enter flight id:")
     Runwayid=input("enter runway id: ")
     Clearancetype=input("enter clearance type: ")
     Clearancetime=input("enter clerance time:")
     Controllerid=input("enter controller id:")
-    Status=input("enter status:")
-
-   
+    Status=input("enter status:")   
     query="insert into atc_clearance(Clearanceid,Flightid,Runwayid,Clearancetype,Clearancetime,Controllerid,Status) values(%s,%s,%s,%s,%s,%s,%s)"
     values=(Clearanceid,Flightid,Runwayid,Clearancetype,Clearancetime,Controllerid,Status)
     mycursor.execute(query,values)
-    print("clerance record added successfully")
-
+    print("Clearance record added successfully")
 
 def DISPLAYCLEARANCE():
     print("==display CLEARANCE RECORD==")
@@ -172,15 +168,14 @@ def  SEARCHCLEARANCE():
     if result:
         print(result)
     else:
-        print("clearance record not found")
+        print("Clearance record not found")
 def DELETECLEARANCE():
-    print("==delete CLEARANCE RECORD==")
+    print("==Delete CLEARANCE RECORD==")
     print()
     Clearanceid=input("enter clearance id:")
     query="delete from atc_clearance where Clearanceid=%s"
     values=(Clearanceid,)
     mycursor.execute(query,values)
-    print("clearance record deleted successfully")
-
+    print("Clearance record deleted successfully")
 
 login()
