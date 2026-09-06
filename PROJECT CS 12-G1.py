@@ -171,12 +171,10 @@ def UPDATEPILOT():
 def DELETEPILOT():
     pilotcursor = mydb.cursor()
     pilot_id = int(input("Enter Pilot ID to delete: "))
-
-    query = "DELETE FROM pilots WHERE PilotID = %s"
-    cursor.execute('DELETE FROM pilots WHERE PilotID= '"+pilot_id+"'')
-    conn.commit()
-
-def 
+    pilotcursor.execute('DELETE FROM pilots WHERE PilotID= '"+pilot_id+"'')
+    mydb.commit()
+    pilotcursor.close()
+    
 def PilotInformationMenu():
     while True:
         print("==Pilot Information Menu==")
