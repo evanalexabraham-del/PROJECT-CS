@@ -8,6 +8,26 @@ mydb = mysql.connector.connect(
 mycursor=mydb.cursor()
 
 #AIRCRAFT MENU
+def ADDAIRCRAFT():
+    aid=int(input("Enter 3 digit aircraft ID: "))
+    airline = input("Enter airline: ")
+    atype = input("Enter Aircraft type:")
+    Status=input("Enter status of aircraft:")
+    mydb.execute("INSERT INTO aircraft VALUES("'+aid+'", "'+airline+'","'+atype+'","'+status+'");")
+    mydb.commit()
+
+
+def VIEWAIRCRAFT():
+    print("=============AIRCRAFT DETAILS===============")
+    mycursor.execute("SELECT * FROM aircraft;")
+    for i in mycursor:
+        print (i)
+
+def SEARCHAIRCRAFT():
+    ID= int(input("Enter Aircraft ID to search"))
+    print("DETAILS OF AIRCRAFT SEARCHED:")
+    mycursor.execute("SELECT * FROM aircraft WHERE aircraftID = "'+ID+'";")
+
 def AircraftManagementMenu():
     while True:
         print("==Aircraft Management Menu==")
