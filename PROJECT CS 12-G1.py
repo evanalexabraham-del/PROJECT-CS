@@ -16,9 +16,10 @@ def ADDAIRCRAFT():
     aid=int(input("Enter 3 digit aircraft ID: "))
     airline = input("Enter airline: ")
     atype = input("Enter Aircraft type:")
-    Status=input("Enter status of aircraft:")
-    mycursor.execute("INSERT INTO aircraft VALUES('"+str(aid)+ "', '"+airline+"','"+atype+"','"+status+"';")
+    stat=input("Enter status of aircraft:")
+    mycursor.execute("INSERT INTO aircraft VALUES('"+aid+ "', '"+airline+"','"+atype+"','"+stat+"';")
     mydb.commit()
+    print("RECORD ADDED!")
 
 
 def VIEWAIRCRAFT():
@@ -30,11 +31,12 @@ def VIEWAIRCRAFT():
 def SEARCHAIRCRAFT():
     ID= int(input("Enter Aircraft ID to search"))
     print("DETAILS OF AIRCRAFT SEARCHED:")
-    mycursor.execute("SELECT * FROM aircraft WHERE aircraftID = "'+ID+'";")
+    mycursor.execute("SELECT * FROM aircraft WHERE aircraftID = '"+str(ID)+"';")
 
 def UPDATEAIRCRAFT():
     ID = int(input("Enter ID of aircraft whose status is to be updated:"))
     newstat = input("Enter new status:")
+    
 
     
 
