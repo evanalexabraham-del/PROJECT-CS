@@ -7,6 +7,44 @@ mydb = mysql.connector.connect(
 )
 mycursor=mydb.cursor()
 
+#AIRCRAFT RELATED FUNCTIONS
+def ADDAIRCRAFT():
+    aid = int(input("Enter 3 digit aircraft ID: "))
+    airline = input("Enter airline: ")
+    atype = input("Enter Aircraft type: ")
+    stat = input("Enter status of aircraft: ")
+    mycursor.execute("INSERT INTO aircraft VALUES (%s, %s, %s, %s)",(aid, airline, atype, stat))
+    mydb.commit()
+    print("RECORD ADDED!")
+
+def VIEWAIRCRAFT():
+    print("=============AIRCRAFT DETAILS===============")
+    mycursor.execute("SELECT * FROM aircraft;")
+    for i in mycursor:
+        print (i)
+
+def SEARCHAIRCRAFT():
+    ID = int(input("Enter Aircraft ID to search: "))
+    print("DETAILS OF AIRCRAFT SEARCHED:")
+    mycursor.execute("SELECT * FROM aircraft WHERE aircraftID = %s", (ID,))
+    res = mycursor.fetchone()
+    if res:
+        print(res)
+    else:
+        print("AIRCRAFT NOT FOUND!")
+
+def UPDATEAIRCRAFT():
+    ID = int(input("Enter ID of aircraft whose status is to be updated:"))
+    newstat = input("Enter new status:")
+    mycursor.execute("UPDATE aircraft SET status = %s WHERE aircraftID = %s;", (newstat, ID))
+    mydb.commit()
+    print("Aircraft added successfully!")
+
+def DELETEAIRCRAFT():
+    ID = int(input("Enter ID of aircraft to delete:"))
+    mycursor.execute("DELETE FROM aircraft WHERE aircraftID = %s;",(ID,))
+    print("Aircraft deleted")
+
 #AIRCRAFT MENU
 def AircraftManagementMenu():
     while True:
@@ -33,7 +71,6 @@ def AircraftManagementMenu():
             break
         else:
             print("Invalid Choice")
-
 
 #FLIGHT RELATED FUNCTIONS
 def ADDFLIGHT():
@@ -234,7 +271,6 @@ def SEARCHOUTGOINGFLIGHTS():
     for row in data:
         print(row)
 
-            
 #FLIGHT STATUS MENU
 def FlightStatusMenu():
     while True:
@@ -311,6 +347,7 @@ def MAINMENU():
             break
         else:
             print("Invalid Choice")
+            
 def login():
         un=input("enter your username:  ")
         username=un.lower()
@@ -325,4 +362,3 @@ def login():
         else:
             print("invalid username or password")
 login()
-
