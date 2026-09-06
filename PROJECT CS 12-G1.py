@@ -9,13 +9,14 @@ mydb = mysql.connector.connect(
 
 
 
+
 #AIRCRAFT RELATED FUNCTION
 def ADDAIRCRAFT():
     aid=int(input("Enter 3 digit aircraft ID: "))
     airline = input("Enter airline: ")
     atype = input("Enter Aircraft type:")
     Status=input("Enter status of aircraft:")
-    mydb.execute("ALTER TABLE aircraft ADD(aid, airline, atype, status);")
+    mydb.execute("INSERT INTO aircraft VALUES(aid, airline, atype, status);")
     mydb.commit()
 
 
