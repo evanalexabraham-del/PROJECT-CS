@@ -24,7 +24,8 @@ def VIEWAIRCRAFT():
     print("=============AIRCRAFT DETAILS===============")
     mycursor.execute("SELECT * FROM aircraft;")
     for i in mycursor:
-        print i
+        print (i)
+
     
     
     
