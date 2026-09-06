@@ -17,7 +17,7 @@ def ADDAIRCRAFT():
     airline = input("Enter airline: ")
     atype = input("Enter Aircraft type:")
     Status=input("Enter status of aircraft:")
-    mycursor.execute("INSERT INTO aircraft VALUES("'+aid+'", "'+airline+'","'+atype+'","'+status+'");")
+    mycursor.execute("INSERT INTO aircraft VALUES(aid, airline,atype,status);")
     mydb.commit()
 
 
