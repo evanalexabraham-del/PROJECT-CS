@@ -121,7 +121,62 @@ def FlightManagementMenu():
         else:
             print("Invalid Choice")
 
-#PILOT RELATED FUNCTION
+#PILOT RELATED FUNCTIONS
+def ADDPILOT():
+    pilotcursor = mydb.cursor()
+    pilot_id = int(input("Enter Pilot ID: "))
+    name = input("Enter Pilot Name: ")
+    exp = int(input("Enter Experience (Years): "))
+    flight_id = int(input("Enter Flight ID: "))
+    contact = input("Enter Contact Number: ")
+    pilotcursor.execute("INSERT INTO pilots VALUES ((pilot_id, name, exp, flight_id, contact))")
+    mydb.commit()
+    print("Pilot record added successfully.")
+    pilotcursor.close()
+
+def VIEWPILOT():
+    pilotcursor = mydb.cursor()
+    pilotcursor.execute("SELECT * FROM pilots")
+    records = pilotcursor.fetchall()
+    print("---PILOT RECORDS---")
+    for row in records:
+        print("ID:", row[0])
+        print("Name:", row[1])
+        print("Exp:", row[2], "yrs")
+        print("FlightID:", row[3])
+        print("Contact:", row[4])
+    pilotcursor.close()
+
+def SEARCHPILOT():
+    pilotcursor = mydb.cursor()
+    pilot_id = int(input("Enter Pilot ID to search: "))
+    pilotcursor.execute('SELECT * FROM pilots WHERE PilotID = "'pilot_id'"')
+    record = cursor.fetchone()
+
+def UPDATEPILOT():
+    pilotcursor = mydb.cursor()
+    pilot_id = int(input("Enter Pilot ID to update: "))
+    cursor.execute("SELECT * FROM pilots WHERE PilotID = '"pilot_id"'")
+    record = cursor.fetchone()
+    if record:
+        print("Enter new details for the pilot:")
+        new_name = input("Enter New Name: ")
+        new_exp = int(input("Enter New Experience (in Years): "))
+        new_flight_id = int(input("Enter New Flight ID: "))
+        new_contact = input("Enter New Contact: ")
+        cursor.execute('UPDATE pilots SET PilotName = '"+new_name+"', Experience = '"+new_exp+"', FlightID = '"+new_flight_id+"' , Contact= '"+new_contact+"'')
+        pilotcursor.commit()
+        pilotcursor.close()
+
+def DELETEPILOT():
+    pilotcursor = mydb.cursor()
+    pilot_id = int(input("Enter Pilot ID to delete: "))
+
+    query = "DELETE FROM pilots WHERE PilotID = %s"
+    cursor.execute('DELETE FROM pilots WHERE PilotID= '"+pilot_id+"'')
+    conn.commit()
+
+def 
 def PilotInformationMenu():
     while True:
         print("==Pilot Information Menu==")
