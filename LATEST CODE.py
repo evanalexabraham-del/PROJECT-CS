@@ -61,14 +61,7 @@ def SEARCHFLIGHT():
     mycursor.execute('SELECT * FROM flights WHERE FlightNo = "' + fno + '"')
     record = mycursor.fetchone()
     if record:
-        print("Flight ID:", record[0])
-        print("Flight No:", record[1])
-        print("Aircraft ID:", record[2])
-        print("Origin:", record[3])
-        print("Destination:", record[4])
-        print("Departure Time:", record[5])
-        print("Arrival Time:", record[6])
-        print("Status:", record[7])
+        print(record)
     else:
         print("Flight not found")
     
@@ -79,7 +72,6 @@ def UPDATEFLIGHT():
     mycursor.execute("UPDATE flights SET Status = '" + status + "' WHERE FlightID = " + str(fid))
     mydb.commit()
     print("Flight details updated successfully")
-    mycursor.close()
 
 def REMOVEFLIGHT():
     mycursor=mydb.cursor()
@@ -90,7 +82,6 @@ def REMOVEFLIGHT():
         print("Flight deleted successfully")
     else:
         print("No flight found.")
-        flightcursor.close()
 
 #FLIGHT RELATED MENU
 def FlightManagementMenu():
@@ -119,6 +110,7 @@ def FlightManagementMenu():
         else:
             print("Invalid Choice")
 
+#PILOT RELATED FUNCTION
 def ADDPILOT():
     pilotcursor = mydb.cursor()
     pilot_id = int(input("Enter Pilot ID: "))
@@ -129,7 +121,6 @@ def ADDPILOT():
     pilotcursor.execute("INSERT INTO pilots VALUES ((pilot_id, name, exp, flight_id, contact))")
     mydb.commit()
     print("Pilot record added successfully.")
-    pilotcursor.close()
 
 def VIEWPILOT():
     pilotcursor = mydb.cursor()
@@ -147,18 +138,19 @@ def SEARCHPILOT():
     print(record)
 
 def UPDATEPILOT():
-    pilotcursor = mydb.cursor()
-    pilot_id = int(input("Enter Pilot ID to update: "))
-    cursor.execute("SELECT * FROM pilots WHERE PilotID = "+ str(pilot_id))
-    record = cursor.fetchone()
-    if record:
-        print("Enter new details for the pilot:")
-        new_name = input("Enter New Name: ")
-        new_exp = int(input("Enter New Experience (in Years): "))
-        new_flight_id = int(input("Enter New Flight ID: "))
-        new_contact = input("Enter New Contact: ")
-        cursor.execute('UPDATE pilots SET PilotName = '"+new_name+"', Experience = '"+new_exp+"', FlightID = '"+new_flight_id+"' , Contact= '"+new_contact+"'')
-        pilotcursor.commit()
+    cur = mydb.cursor()
+    pid = int(input("Enter Pilot ID: "))
+    cur.execute("SELECT * FROM Pilots WHERE PilotID=%s", (pid,))
+    if cur.fetchone():
+        name = input("Enter New Name: ")
+        exp = int(input("Enter New Experience: "))
+        fid = int(input("Enter New Flight ID: "))
+        contact = input("Enter New Contact: ")
+        cur.execute("""UPDATE Pilots SET PilotName=%s, Experience=%s, FlightID=%s, Contact=%s WHERE PilotID=%s""",(name, exp, fid, contact, pid))
+        mydb.commit()
+        print("Pilot updated successfully.")
+    else:
+        print("Pilot ID not found.")
 
 def DELETEPILOT():
     pilotcursor = mydb.cursor()
@@ -219,6 +211,29 @@ def ATCClearanceManagementMenu():
             break
         else:
             print("Invalid Choice")
+
+#Flight Status Functions
+def VIEWFLIGHTS():
+    mycursor.execute("SELECT FlightID, FlightNo, Origin, Destination, DepartureTime, ArrivalTime, Status FROM flights")
+    data = mycursor.fetchall()
+    print("\n========== ALL FLIGHTS ==========")
+    for row in data:
+        print(row)
+  
+def SEARCHINCOMINGFLIGHTS():
+    mycursor.execute("SELECT FlightID, FlightNo, Origin, Destination, ArrivalTime, Status FROM flights WHERE Destination='Thiruvananthapuram'")
+    data = mycursor.fetchall()
+    print("\n====== INCOMING FLIGHTS ======")
+    for row in data:
+        print(row)
+
+def SEARCHOUTGOINGFLIGHTS():
+    mycursor.execute("SELECT FlightID, FlightNo, Origin, Destination, DepartureTime, Status FROM flights WHERE Origin='Thiruvananthapuram'")
+    data = mycursor.fetchall()
+    print("\n====== OUTGOING FLIGHTS ======")
+    for row in data:
+        print(row)
+
             
 #FLIGHT STATUS MENU
 def FlightStatusMenu():
@@ -310,3 +325,4 @@ def login():
         else:
             print("invalid username or password")
 login()
+
