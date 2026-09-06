@@ -6,6 +6,68 @@ mydb = mysql.connector.connect(
     database="atc"
 )
 mycursor=mydb.cursor()
+
+#FLIGHT RELATED MENU
+def ADDFLIGHT():
+    flightcursor=mydb.cursor()
+    n=int(input("How many Flight records would you like to add? "))
+    for i in range (n):
+        fid=int(input('Enter Flight ID: '))
+        fno=input('Enter Flight No: ')
+        aid=input('Enter Aircraft ID: ')
+        orig=input('Enter origin city: ')
+        dest-input('Enter destination city:')
+        departuretime=input('Enter time of departure: ')
+        arrivaltime=input('Enter time of arrival: ')
+        status=input('Enter status of flight: ')
+        flightcursor.execute('insert into flights values(fid,fno,aid,orig,dest,departuretime,arrivaltime,status)')
+        mydb.commit()
+        print('Record Inserted')
+        
+def DISPLAYDETAILS():
+    flightcursor.execute('SELECT * FROM FLIGHTS')
+    records=flightcursor.fetchall()
+    for data in records():
+        print(data)
+
+def SEARCHFLIGHT():
+    fno = input("Enter Flight Number: ")
+    flightcursor.execute('SELECT * FROM flights WHERE FlightNo = "' + fno + '"')
+    record = flightcursor.fetchone()
+    if record:
+        print("Flight ID:", record[0])
+        print("Flight No:", record[1])
+        print("Aircraft ID:", record[2])
+        print("Origin:", record[3])
+        print("Destination:", record[4])
+        print("Departure Time:", record[5])
+        print("Arrival Time:", record[6])
+        print("Status:", record[7])
+    else:
+        print("Flight not found")
+    flightcursor.close()
+    
+def UPDATEFLIGHT():
+    flightcursor=mydb.cursor()
+    fid = int(input("Enter Flight ID: "))
+    status = input("Enter new status: ")
+    flightcursor.execute("UPDATE flights SET Status = '" + status + "' WHERE FlightID = " + str(fid))
+    mydb.commit()
+    print("Flight details updated successfully")
+    flightcursor.close()
+
+def REMOVEFLIGHT():
+    flightcursor=mydb.cursor()
+    fno = input("Enter Flight Number to remove: ")
+    flightcursor.execute('DELETE FROM flights WHERE FlightNo = "'+fno+ '"')
+    mydb.commit()
+    if flightcursor.rowcount > 0:
+        print("Flight deleted successfully")
+    else:
+        print("No flight found.")
+        flightcursor.close()
+
+#LOGIN PART 
 def login():
         un=input("enter your username:  ")
         username=un.lower()
