@@ -7,6 +7,7 @@ mydb = mysql.connector.connect(
     database="AIR_TRAFFIC_CONTROL"
 )
 
+mycursor = mydb.cursor()
 
 
 
@@ -25,6 +26,15 @@ def VIEWAIRCRAFT():
     mycursor.execute("SELECT * FROM aircraft;")
     for i in mycursor:
         print (i)
+
+def SEARCHAIRCRAFT():
+    ID= int(input("Enter Aircraft ID to search"))
+    print("DETAILS OF AIRCRAFT SEARCHED:")
+    mycursor.execute("SELECT * FROM aircraft WHERE aircraftID = "'+ID+'";")
+
+def UPDATEAIRCRAFT()
+
+    
 
     
     
