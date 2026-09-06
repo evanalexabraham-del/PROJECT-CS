@@ -47,11 +47,7 @@ def UPDATEAIRCRAFT():
     newstat = input("Enter new status:")
     mycursor.execute("UPDATE aircraft SET status = %s WHERE aircraftID = %s;", (newstat, ID))
     mydb.commit()
-    print("UPDATED TABLE:")
-    mycursor.execute("SELECT * FROM aircraft;")
-    for i in mycursor:
-        print(i)
-        
+    print("Aircraft added successfully!")
     
 
     
