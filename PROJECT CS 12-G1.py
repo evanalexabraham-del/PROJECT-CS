@@ -29,7 +29,7 @@ def VIEWAIRCRAFT():
     data= mycursor.fetchall()
     print("AIRCRAFT ID\tAIRLINE\tAIRCRAFT TYPE\tSTATUS")
     for i in data:
-        print(i[0]"\t" i[1] "\t"i[2] "\t"i[3])
+        print(i[0],"\t", i[1], "\t",i[2], "\t",i[3])
     print("============================================")
     
 
