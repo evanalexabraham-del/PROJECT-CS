@@ -1,8 +1,8 @@
 import mysql.connector
 mydb = mysql.connector.connect(
     host="localhost",
-    user="root",
-    password="Evan@2009",
+    user="nats",
+    password="2009",
     database="AIR_TRAFFIC_CONTROL"
 )
 
@@ -92,7 +92,7 @@ def REMOVEFLIGHT():
     if flightcursor.rowcount > 0:
         print("Flight deleted successfully")
     else:
-        print("No flight found.)
+        print("No flight found.")
         flightcursor.close()
     
 def FlightManagementMenu():
@@ -150,13 +150,13 @@ def VIEWPILOT():
 def SEARCHPILOT():
     pilotcursor = mydb.cursor()
     pilot_id = int(input("Enter Pilot ID to search: "))
-    pilotcursor.execute('SELECT * FROM pilots WHERE PilotID = "'pilot_id'"')
+    pilotcursor.execute("SELECT * FROM pilots WHERE PilotID = " + pilot_id)
     record = cursor.fetchone()
 
 def UPDATEPILOT():
     pilotcursor = mydb.cursor()
     pilot_id = int(input("Enter Pilot ID to update: "))
-    cursor.execute("SELECT * FROM pilots WHERE PilotID = '"pilot_id"'")
+    cursor.execute("SELECT * FROM pilots WHERE PilotID = "+ pilot_id)
     record = cursor.fetchone()
     if record:
         print("Enter new details for the pilot:")
