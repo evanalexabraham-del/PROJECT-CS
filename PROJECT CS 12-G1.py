@@ -7,114 +7,45 @@ mydb = mysql.connector.connect(
 )
 mycursor=mydb.cursor()
 
-#FLIGHT RELATED MENU
-def ADDFLIGHT():
-    flightcursor=mydb.cursor()
-    n=int(input("How many Flight records would you like to add? "))
-    for i in range (n):
-        fid=int(input('Enter Flight ID: '))
-        fno=input('Enter Flight No: ')
-        aid=input('Enter Aircraft ID: ')
-        orig=input('Enter origin city: ')
-        dest-input('Enter destination city:')
-        departuretime=input('Enter time of departure: ')
-        arrivaltime=input('Enter time of arrival: ')
-        status=input('Enter status of flight: ')
-        flightcursor.execute('insert into flights values(fid,fno,aid,orig,dest,departuretime,arrivaltime,status)')
-        mydb.commit()
-        print('Record Inserted')
-        
-def DISPLAYDETAILS():
-    flightcursor.execute('SELECT * FROM FLIGHTS')
-    records=flightcursor.fetchall()
-    for data in records():
-        print(data)
-
-def SEARCHFLIGHT():
-    fno = input("Enter Flight Number: ")
-    flightcursor.execute('SELECT * FROM flights WHERE FlightNo = "' + fno + '"')
-    record = flightcursor.fetchone()
-    if record:
-        print("Flight ID:", record[0])
-        print("Flight No:", record[1])
-        print("Aircraft ID:", record[2])
-        print("Origin:", record[3])
-        print("Destination:", record[4])
-        print("Departure Time:", record[5])
-        print("Arrival Time:", record[6])
-        print("Status:", record[7])
-    else:
-        print("Flight not found")
-    flightcursor.close()
-    
-def UPDATEFLIGHT():
-    flightcursor=mydb.cursor()
-    fid = int(input("Enter Flight ID: "))
-    status = input("Enter new status: ")
-    flightcursor.execute("UPDATE flights SET Status = '" + status + "' WHERE FlightID = " + str(fid))
+#AIRCRAFT RELATED FUNCTIONS
+def ADDAIRCRAFT():
+    aid = int(input("Enter 3 digit aircraft ID: "))
+    airline = input("Enter airline: ")
+    atype = input("Enter Aircraft type: ")
+    stat = input("Enter status of aircraft: ")
+    mycursor.execute("INSERT INTO aircraft VALUES (%s, %s, %s, %s)",(aid, airline, atype, stat))
     mydb.commit()
-    print("Flight details updated successfully")
-    flightcursor.close()
+    print("RECORD ADDED!")
 
-def REMOVEFLIGHT():
-    flightcursor=mydb.cursor()
-    fno = input("Enter Flight Number to remove: ")
-    flightcursor.execute('DELETE FROM flights WHERE FlightNo = "'+fno+ '"')
-    mydb.commit()
-    if flightcursor.rowcount > 0:
-        print("Flight deleted successfully")
+def VIEWAIRCRAFT():
+    print("=============AIRCRAFT DETAILS===============")
+    mycursor.execute("SELECT * FROM aircraft;")
+    for i in mycursor:
+        print (i)
+
+def SEARCHAIRCRAFT():
+    ID = int(input("Enter Aircraft ID to search: "))
+    print("DETAILS OF AIRCRAFT SEARCHED:")
+    mycursor.execute("SELECT * FROM aircraft WHERE aircraftID = %s", (ID,))
+    res = mycursor.fetchone()
+    if res:
+        print(res)
     else:
-        print("No flight found.")
-        flightcursor.close()
+        print("AIRCRAFT NOT FOUND!")
 
-#LOGIN PART 
-def login():
-        un=input("enter your username:  ")
-        username=un.lower()
-        password=input("enter your password:  ")
-        query1="select * from users where username=%s and password=%s"
-        values=(username,password)
-        mycursor.execute(query1,values)
-        result=mycursor.fetchone()
-        if result:
-            print("login successful")
-            MAINMENU()
-        else:
-            print("invalid username or password")
-login()
+def UPDATEAIRCRAFT():
+    ID = int(input("Enter ID of aircraft whose status is to be updated:"))
+    newstat = input("Enter new status:")
+    mycursor.execute("UPDATE aircraft SET status = %s WHERE aircraftID = %s;", (newstat, ID))
+    mydb.commit()
+    print("Aircraft added successfully!")
 
-def MAINMENU():
-    print("===================================")
-    print("       ATC MANAGEMENT SYSTEM")
-    print("===================================")
-    while True:
-        print("1. Aircraft Management")
-        print("2. Flight Management")
-        print("3. Pilot Management")
-        print("4. ATC Clearance")
-        print("5. Flight Status")
-        print("6. Report and Queries")
-        print("7. Exit")
-        choice=int(input("Enter Submenu:"))
-        if choice == 1:
-            AircraftManagementMenu()
-        elif choice == 2:
-            FlightManagementMenu()
-        elif choice == 3:
-            PilotInformationMenu()
-        elif choice == 4:
-            ATCClearanceManagementMenu()
-        elif choice == 5:
-            FlightStatusMenu()
-        elif choice == 6:
-            ReportQueryMenu():
-        elif choice == 7:
-            print("Program Terminated")
-            break
-        else:
-            print("Invalid Choice")
-              
-#AIRCRAFT RELATED FUNCTION
+def DELETEAIRCRAFT():
+    ID = int(input("Enter ID of aircraft to delete:"))
+    mycursor.execute("DELETE FROM aircraft WHERE aircraftID = %s;",(ID,))
+    print("Aircraft deleted")
+
+#AIRCRAFT MENU
 def AircraftManagementMenu():
     while True:
         print("==Aircraft Management Menu==")
@@ -141,7 +72,55 @@ def AircraftManagementMenu():
         else:
             print("Invalid Choice")
 
-#FLIGHT RELATED FUNCTION
+#FLIGHT RELATED FUNCTIONS
+def ADDFLIGHT():
+    n=int(input("How many Flight records would you like to add? "))
+    for i in range(n):
+        fid=int(input('Enter Flight ID: '))
+        fno=input('Enter Flight No: ')
+        aid=input('Enter Aircraft ID: ')
+        orig=input('Enter origin city: ')
+        dest=input('Enter destination city:')
+        departuretime=input('Enter time of departure: ')
+        arrivaltime=input('Enter time of arrival: ')
+        status=input('Enter status of flight: ')
+        mycursor.execute("insert into flights values(%s,%s,%s,%s,%s,%s,%s,%s)",(fid,fno,aid,orig,dest,departuretime,arrivaltime,status))
+        mydb.commit()
+        print('Record Inserted')
+        
+def DISPLAYDETAILS():
+    mycursor.execute('SELECT * FROM FLIGHTS')
+    for data in mycursor.fetchall():
+        print(data)
+
+def SEARCHFLIGHT():
+    fno = input("Enter Flight Number: ")
+    mycursor.execute('SELECT * FROM flights WHERE FlightNo = "' + fno + '"')
+    record = mycursor.fetchone()
+    if record:
+        print(record)
+    else:
+        print("Flight not found")
+    
+def UPDATEFLIGHT():
+    mycursor=mydb.cursor()
+    fid = int(input("Enter Flight ID: "))
+    status = input("Enter new status: ")
+    mycursor.execute("UPDATE flights SET Status = '" + status + "' WHERE FlightID = " + str(fid))
+    mydb.commit()
+    print("Flight details updated successfully")
+
+def REMOVEFLIGHT():
+    mycursor=mydb.cursor()
+    fno = input("Enter Flight Number to remove: ")
+    mycursor.execute('DELETE FROM flights WHERE FlightNo = "'+fno+ '"')
+    mydb.commit()
+    if mycursor.rowcount > 0:
+        print("Flight deleted successfully")
+    else:
+        print("No flight found.")
+
+#FLIGHT RELATED MENU
 def FlightManagementMenu():
     while True:
         print("==Flight Management Menu==")
@@ -169,6 +148,54 @@ def FlightManagementMenu():
             print("Invalid Choice")
 
 #PILOT RELATED FUNCTION
+def ADDPILOT():
+    pilotcursor = mydb.cursor()
+    pilot_id = int(input("Enter Pilot ID: "))
+    name = input("Enter Pilot Name: ")
+    exp = int(input("Enter Experience (Years): "))
+    flight_id = int(input("Enter Flight ID: "))
+    contact = input("Enter Contact Number: ")
+    pilotcursor.execute("INSERT INTO pilots VALUES ((pilot_id, name, exp, flight_id, contact))")
+    mydb.commit()
+    print("Pilot record added successfully.")
+
+def VIEWPILOT():
+    pilotcursor = mydb.cursor()
+    pilotcursor.execute("SELECT * FROM pilots")
+    records = pilotcursor.fetchall()
+    print("---PILOT RECORDS---")
+    for row in records:
+        print(row)
+
+def SEARCHPILOT():
+    pilotcursor = mydb.cursor()
+    pilot_id = int(input("Enter Pilot ID to search: "))
+    pilotcursor.execute("SELECT * FROM pilots WHERE PilotID = " +str(pilot_id))
+    record = pilotcursor.fetchone()
+    print(record)
+
+def UPDATEPILOT():
+    cur = mydb.cursor()
+    pid = int(input("Enter Pilot ID: "))
+    cur.execute("SELECT * FROM Pilots WHERE PilotID=%s", (pid,))
+    if cur.fetchone():
+        name = input("Enter New Name: ")
+        exp = int(input("Enter New Experience: "))
+        fid = int(input("Enter New Flight ID: "))
+        contact = input("Enter New Contact: ")
+        cur.execute("""UPDATE Pilots SET PilotName=%s, Experience=%s, FlightID=%s, Contact=%s WHERE PilotID=%s""",(name, exp, fid, contact, pid))
+        mydb.commit()
+        print("Pilot updated successfully.")
+    else:
+        print("Pilot ID not found.")
+
+def DELETEPILOT():
+    pilotcursor = mydb.cursor()
+    pilot_id = int(input("Enter Pilot ID to delete: "))
+    pilotcursor.execute('DELETE FROM pilots WHERE PilotID= '"+pilot_id+"'')
+    mydb.commit()
+    
+#PILOT RELATED MENU
 def PilotInformationMenu():
     while True:
         print("==Pilot Information Menu==")
@@ -195,7 +222,49 @@ def PilotInformationMenu():
         else:
             print("Invalid Choice")
 
-#ATCClearanceManagementMenu
+#CLEARANCE FUNCTIONS 
+def ADDCLEARANCE():
+    print("==add CLEARANCE RECORD==")
+    Clearanceid=input("Enter clearance id:")
+    Flightid=input("Enter flight id:")
+    Runwayid=input("Enter runway id: ")
+    Clearancetype=input("Enter clearance type: ")
+    Clearancetime=input("Enter clerance time:")
+    Controllerid=input("Enter controller id:")
+    Status=input("Enter status:")   
+    query="insert into ATCClearance(Clearanceid,Flightid,Runwayid,Clearancetype,Clearancetime,Controllerid,Status) values(%s,%s,%s,%s,%s,%s,%s)"
+    values=(Clearanceid,Flightid,Runwayid,Clearancetype,Clearancetime,Controllerid,Status)
+    mycursor.execute(query,values)
+    print("Clearance record added successfully")
+
+def DISPLAYCLEARANCE():
+    print("==Display CLEARANCE RECORD==")
+    query="select * from ATCClearance"
+    mycursor.execute(query)
+    result=mycursor.fetchall()
+    for row in result:
+        print(row)
+
+def  SEARCHCLEARANCE():
+    print("==search CLEARANCE RECORD==")
+    Flightid=input("Enter flight id:")
+    query="select * from ATCClearance where Flightid=%s"
+    values=(Flightid,)
+    mycursor.execute(query,values)
+    result=mycursor.fetchone()
+    if result:
+        print(result)
+    else:
+        print("Clearance record not found")
+def DELETECLEARANCE():
+    print("==Delete CLEARANCE RECORD==")
+    Clearanceid=input("Enter clearance id:")
+    query="delete from ATCClearance where Clearanceid=%s"
+    values=(Clearanceid,)
+    mycursor.execute(query,values)
+    print("Clearance record deleted successfully")
+    
+#ATCCLEARANCE MANAGEMENT MENU
 def ATCClearanceManagementMenu():
     while True:
         print("==ATC Clearance Management Menu==")
@@ -221,8 +290,30 @@ def ATCClearanceManagementMenu():
             break
         else:
             print("Invalid Choice")
-            
-#FlightStatusMenu
+
+#Flight Status Functions
+def VIEWFLIGHTS():
+    mycursor.execute("SELECT FlightID, FlightNo, Origin, Destination, DepartureTime, ArrivalTime, Status FROM flights")
+    data = mycursor.fetchall()
+    print("\n========== ALL FLIGHTS ==========")
+    for row in data:
+        print(row)
+  
+def SEARCHINCOMINGFLIGHTS():
+    mycursor.execute("SELECT FlightID, FlightNo, Origin, Destination, ArrivalTime, Status FROM flights WHERE Destination='Thiruvananthapuram'")
+    data = mycursor.fetchall()
+    print("\n====== INCOMING FLIGHTS ======")
+    for row in data:
+        print(row)
+
+def SEARCHOUTGOINGFLIGHTS():
+    mycursor.execute("SELECT FlightID, FlightNo, Origin, Destination, DepartureTime, Status FROM flights WHERE Origin='Thiruvananthapuram'")
+    data = mycursor.fetchall()
+    print("\n====== OUTGOING FLIGHTS ======")
+    for row in data:
+        print(row)
+
+#FLIGHT STATUS MENU
 def FlightStatusMenu():
     while True:
         print("==Flight Status==")
@@ -243,6 +334,7 @@ def FlightStatusMenu():
         else:
             print("Invalid Choice")
 
+#REPORT AND QUERY MENU
 def ReportQueryMenu():
     while True:
         print("==Flight Status==")
@@ -265,3 +357,50 @@ def ReportQueryMenu():
             break
         else:
             print("Invalid Choice")
+
+#MAIN MENU
+def MAINMENU():
+    print("===================================")
+    print("       ATC MANAGEMENT SYSTEM")
+    print("===================================")
+    while True:
+        print("1. Aircraft Management")
+        print("2. Flight Management")
+        print("3. Pilot Management")
+        print("4. ATC Clearance")
+        print("5. Flight Status")
+        print("6. Report and Queries")
+        print("7. Exit")
+        choice=int(input("Enter Submenu:"))
+        if choice == 1:
+            AircraftManagementMenu()
+        elif choice == 2:
+            FlightManagementMenu()
+        elif choice == 3:
+            PilotInformationMenu()
+        elif choice == 4:
+            ATCClearanceManagementMenu()
+        elif choice == 5:
+            FlightStatusMenu()
+        elif choice == 6:
+            ReportQueryMenu()
+        elif choice == 7:
+            print("Program Terminated")
+            break
+        else:
+            print("Invalid Choice")
+            
+def login():
+        un=input("enter your username:  ")
+        username=un.lower()
+        password=input("enter your password:  ")
+        query1="select * from users where username=%s and password=%s"
+        values=(username,password)
+        mycursor.execute(query1,values)
+        result=mycursor.fetchone()
+        if result:
+            print("login successful")
+            MAINMENU()
+        else:
+            print("invalid username or password")
+login()
