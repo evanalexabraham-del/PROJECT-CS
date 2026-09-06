@@ -48,7 +48,11 @@ def UPDATEAIRCRAFT():
     mycursor.execute("UPDATE aircraft SET status = %s WHERE aircraftID = %s;", (newstat, ID))
     mydb.commit()
     print("Aircraft added successfully!")
-    
+
+def DELETEAIRCRAFT():
+    ID = int(input("Enter ID of aircraft to delete:"))
+    mycursor.execute("DELETE FROM aircraft WHERE aircraftID = %s;",(ID,))
+    print("Aircraft deleted")
 
     
 
