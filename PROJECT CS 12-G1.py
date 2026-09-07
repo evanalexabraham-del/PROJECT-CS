@@ -26,6 +26,7 @@ def ADDAIRCRAFT():
     print("RECORD ADDED!")
 def VIEWAIRCRAFT():
     print("=============AIRCRAFT DETAILS===============")
+    mycursor.execute("SELECT * FROM AIRCRAFT;")
     data= mycursor.fetchall()
     print("AIRCRAFT ID\tAIRLINE\tAIRCRAFT TYPE\tSTATUS")
     for i in data:
@@ -57,6 +58,18 @@ def DELETEAIRCRAFT():
     mycursor.execute("DELETE FROM aircraft WHERE aircraftID = %s;",(ID,))
     print("Aircraft deleted")
 
+def DISPLAYALLINFO():
+    fno=int(input("Enter Flight number to search:"))
+    mycursor.execute("SELECT PilotName from pilots,flights where flights.flightno = pilots.flightno AND flightno = %s;",(fno,))
+    print("Pilot of flight:")
+    for i in mycursor:
+        print(i)
+    mycursor.execute("SELECT * FROM aircraft,flights WHERE aircraft.aircraftid = flights.aircraftid AND flightno = %s;",(fno,))
+    data = mycursor.fetchall()
+    print("Details of aircraft:")
+    print("AircraftID\tAirline\tAircraft Type\tStatus")
+    for i in data:
+        print(i[0],"\t", i[1], "\t",i[2], "\t",i[3])
     
 
     
