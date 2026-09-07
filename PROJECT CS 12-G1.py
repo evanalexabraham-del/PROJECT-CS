@@ -70,8 +70,18 @@ def DISPLAYALLINFO():
     print("AircraftID\tAirline\tAircraft Type\tStatus")
     for i in data:
         print(i[0],"\t", i[1], "\t",i[2], "\t",i[3])
-    
 
+
+def NEEDINGCLEARANCE():
+    print("======FLIGHTS NEEDING CLEARANCE======")
+    mycursor.execute("SELECT Flightno FROM Flights, atcclearance where flights.flightid = atcclearance.flightid AND ")
+    data = mycursor.fetchall()
+    for i in data:
+        print("FLight Number\t", i)
+
+def CONTROLLERMANAGEDFLIGHT():
+    
+   
     
     
     
