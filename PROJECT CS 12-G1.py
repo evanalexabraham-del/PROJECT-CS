@@ -74,12 +74,26 @@ def DISPLAYALLINFO():
 
 def NEEDINGCLEARANCE():
     print("======FLIGHTS NEEDING CLEARANCE======")
-    mycursor.execute("SELECT Flightno FROM Flights, atcclearance where flights.flightid = atcclearance.flightid AND ")
+    mycursor.execute("SELECT Flightno FROM Flights, atcclearance where flights.flightid = atcclearance.flightid AND atcclearance.status = 'Waiting'; ")
     data = mycursor.fetchall()
     for i in data:
         print("FLight Number\t", i)
 
 def CONTROLLERMANAGEDFLIGHT():
+    id = int(input("Enter flight ID to search for controller:"))
+    mycursor.execute("SELECT ControllerID from atcclearance,flights where atcclearance.flightid = flights.flightid and flightid = %s;",(id,))
+    data=mycursor.fetchall()
+    for i in data:
+        print("Controller: ",i)
+
+def CANCELDELAYEDFLIGHTS():
+    print("=====Cancelled/Delayed flights=====")
+    mycursor.execute("Select flightno from flights where status = 'Cancelled' or status = 'Delayed';")
+    data = mycursor.fetchall()
+    for i in data:
+        print("Flight Number ",i)
+
+def 
     
    
     
