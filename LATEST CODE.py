@@ -21,7 +21,9 @@ def VIEWAIRCRAFT():
     print("=============AIRCRAFT DETAILS===============")
     mycursor.execute("SELECT * FROM aircraft;")
     for i in mycursor:
-        print (i)
+        for j in i:
+            print(j, end=" ")
+        print()
 
 def SEARCHAIRCRAFT():
     ID = int(input("Enter Aircraft ID to search: "))
@@ -29,7 +31,8 @@ def SEARCHAIRCRAFT():
     mycursor.execute("SELECT * FROM aircraft WHERE aircraftID = %s", (ID,))
     res = mycursor.fetchone()
     if res:
-        print(res)
+        for i in res:
+            print(i)
     else:
         print("AIRCRAFT NOT FOUND!")
 
