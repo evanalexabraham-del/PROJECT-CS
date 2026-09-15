@@ -1,0 +1,30 @@
+def UPDATECLEARANCE():
+    print("==UPDATE CLEARANCE RECORD==")
+    print()
+
+    Clearanceid = input("Enter clearance id: ")
+
+    query = "SELECT * FROM atc_clearance WHERE Clearanceid=%s"
+    values = (Clearanceid,)
+
+    mycursor.execute(query, values)
+    result = mycursor.fetchone()
+
+    if result:
+        Runwayid = input("Enter new runway id: ")
+        Clearancetype = input("Enter new clearance type: ")
+
+        query = """UPDATE atc_clearance
+                   SET Runwayid=%s, Clearancetype=%s
+                   WHERE Clearanceid=%s"""
+
+        values = (Runwayid, Clearancetype, Clearanceid)
+
+        mycursor.execute(query, values)
+        mydb.commit()
+
+        print("Clearance record updated successfully")
+
+    else:
+        print("Clearance ID not found")
+        AircraftManagementMenu()
