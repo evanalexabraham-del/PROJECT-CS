@@ -21,7 +21,9 @@ def VIEWAIRCRAFT():
     print("=============AIRCRAFT DETAILS===============")
     mycursor.execute("SELECT * FROM aircraft;")
     for i in mycursor:
-        print (i)
+        for j in i:
+            print(j,end="   ")
+        print()
 
 def SEARCHAIRCRAFT():
     ID = int(input("Enter Aircraft ID to search: "))
@@ -29,7 +31,9 @@ def SEARCHAIRCRAFT():
     mycursor.execute("SELECT * FROM aircraft WHERE aircraftID = %s", (ID,))
     res = mycursor.fetchone()
     if res:
-        print(res)
+        for i in res:
+            print(i,end="   ")
+        print()
     else:
         print("AIRCRAFT NOT FOUND!")
 
@@ -91,14 +95,18 @@ def ADDFLIGHT():
 def DISPLAYDETAILS():
     mycursor.execute('SELECT * FROM FLIGHTS')
     for data in mycursor.fetchall():
-        print(data)
+        for i in data:
+            print(i,end="   ")
+        print()
 
 def SEARCHFLIGHT():
     fno = input("Enter Flight Number: ")
     mycursor.execute('SELECT * FROM flights WHERE FlightNo = "' + fno + '"')
     record = mycursor.fetchone()
     if record:
-        print(record)
+        for i in record:
+            print(i,end="   ")
+        print()
     else:
         print("Flight not found")
     
@@ -165,15 +173,19 @@ def VIEWPILOT():
     records = pilotcursor.fetchall()
     print("---PILOT RECORDS---")
     for row in records:
-        print(row)
+        for i in row:
+            print(i,end="   ")
+        print()
 
 def SEARCHPILOT():
     pilotcursor = mydb.cursor()
     pilot_id = int(input("Enter Pilot ID to search: "))
     pilotcursor.execute("SELECT * FROM pilots WHERE PilotID = " +str(pilot_id))
     record = pilotcursor.fetchone()
-    print(record)
-
+    for i in record:
+            print(i,end="   ")
+    print()
+            
 def UPDATEPILOT():
     cur = mydb.cursor()
     pid = int(input("Enter Pilot ID: "))
@@ -243,7 +255,9 @@ def DISPLAYCLEARANCE():
     mycursor.execute(query)
     result=mycursor.fetchall()
     for row in result:
-        print(row)
+        for i in row:
+            print(i,end="   ")
+        print()
 
 def  SEARCHCLEARANCE():
     print("==search CLEARANCE RECORD==")
@@ -253,7 +267,9 @@ def  SEARCHCLEARANCE():
     mycursor.execute(query,values)
     result=mycursor.fetchone()
     if result:
-        print(result)
+        for i in result:
+            print(i,end="   ")
+        print()
     else:
         print("Clearance record not found")
 def DELETECLEARANCE():
@@ -297,21 +313,27 @@ def VIEWFLIGHTS():
     data = mycursor.fetchall()
     print("\n========== ALL FLIGHTS ==========")
     for row in data:
-        print(row)
+        for i in row:
+            print(i,end="   ")
+        print()
   
 def SEARCHINCOMINGFLIGHTS():
     mycursor.execute("SELECT FlightID, FlightNo, Origin, Destination, ArrivalTime, Status FROM flights WHERE Destination='Thiruvananthapuram'")
     data = mycursor.fetchall()
     print("\n====== INCOMING FLIGHTS ======")
     for row in data:
-        print(row)
+        for i in row:
+            print(i,end="   ")
+        print()
 
 def SEARCHOUTGOINGFLIGHTS():
     mycursor.execute("SELECT FlightID, FlightNo, Origin, Destination, DepartureTime, Status FROM flights WHERE Origin='Thiruvananthapuram'")
     data = mycursor.fetchall()
     print("\n====== OUTGOING FLIGHTS ======")
     for row in data:
-        print(row)
+        for i in row:
+            print(i,end="   ")
+        print()
 
 #FLIGHT STATUS MENU
 def FlightStatusMenu():
@@ -391,6 +413,7 @@ def MAINMENU():
             print("Invalid Choice")
             
 def login():
+    while True:
         un=input("enter your username:  ")
         username=un.lower()
         password=input("enter your password:  ")
@@ -403,4 +426,6 @@ def login():
             MAINMENU()
         else:
             print("invalid username or password")
-login()
+            
+if __name__=="__main__":
+    login()
