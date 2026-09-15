@@ -59,7 +59,7 @@ def DELETEAIRCRAFT():
     print("Aircraft deleted")
 
 def DISPLAYALLINFO():
-    fno=int(input("Enter Flight number to search:"))
+    fno=input("Enter Flight number to search:")
     mycursor.execute("SELECT PilotName from pilots,flights where flights.flightno = pilots.flightno AND flightno = %s;",(fno,))
     print("Pilot of flight:")
     for i in mycursor:
