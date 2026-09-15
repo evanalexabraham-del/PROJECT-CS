@@ -47,6 +47,7 @@ def UPDATEAIRCRAFT():
 def DELETEAIRCRAFT():
     ID = int(input("Enter ID of aircraft to delete:"))
     mycursor.execute("DELETE FROM aircraft WHERE aircraftID = %s;",(ID,))
+    mydb.commit()
     print("Aircraft deleted")
 
 #AIRCRAFT MENU
